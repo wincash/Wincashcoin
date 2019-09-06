@@ -1,0 +1,6 @@
+usr/local/bin/wincashcoin-qt usr/bin
+share/pixmaps/wincashcoin32.xpm usr/share/pixmaps
+share/pixmaps/wincashcoin16.xpm usr/share/pixmaps
+share/pixmaps/wincashcoin128.png usr/share/pixmaps
+debian/wincashcoin-qt.desktop usr/share/applications
+debian/wincashcoin-qt.protocol usr/share/kde4/services/

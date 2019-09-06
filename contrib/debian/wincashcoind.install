@@ -1,0 +1,3 @@
+usr/local/bin/wincashcoind usr/bin
+usr/local/bin/wincashcoin-cli usr/bin
+debian/examples/wincashcoin.conf etc/wincashcoin

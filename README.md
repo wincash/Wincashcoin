@@ -1,1 +1,1 @@
-# Wincashcoin
+WincashCoin

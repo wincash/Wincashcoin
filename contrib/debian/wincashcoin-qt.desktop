@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=WINCASHCOIN Core
+Comment=WINCASHCOIN P2P Cryptocurrency
+Comment[fr]=WINCASHCOIN, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=WINCASHCOIN, eşten eşe kriptografik sanal para birimi
+Exec=wincashcoin-qt %u
+Terminal=false
+Type=Application
+Icon=wincashcoin128
+MimeType=x-scheme-handler/wincashcoin;
+Categories=Office;Finance;
+StartupWMClass=WincashCoin-qt
