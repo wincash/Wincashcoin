@@ -54,13 +54,13 @@ static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
     (0, uint256("0x00000e0034a927349bf42ff24c57e5256cc567b591ba59bd87ddb0a9708f04f2"))
     (697, uint256("0x9ea5c9ad8caee805d97dcfcda3256bbdff72faaa9b3b247b81c12f58da55fd14"))
-    (1128, uint256("0xe7b060e13f1c7696d9ffbbf29830037721f7c86a5e4342b4cec281022df9e45e"));
+    (20932, uint256("0x4d08bd9b812eca86993588b0a30ce85ec8291593fa888d0d73c310ad91f6ab94"));
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
-    1568159536, // * UNIX timestamp of last checkpoint block
-    4700,    // * total number of transactions between genesis and last checkpoint
+    1583257939, // * UNIX timestamp of last checkpoint block
+    266907,    // * total number of transactions between genesis and last checkpoint
                 //   (the tx=... number in the SetBestChain debug.log lines)
-    150        // * estimated number of transactions per day after checkpoint
+    200        // * estimated number of transactions per day after checkpoint
 };
 
 static Checkpoints::MapCheckpoints mapCheckpointsTestnet =
@@ -192,7 +192,6 @@ public:
         genesis.nBits = 0x1e0fffff;
         genesis.nNonce = 6164107;
 
-
         hashGenesisBlock = genesis.GetHash();
         assert(hashGenesisBlock == uint256("0x00000e0034a927349bf42ff24c57e5256cc567b591ba59bd87ddb0a9708f04f2"));
         assert(genesis.hashMerkleRoot == uint256("0xb768630a8f0a74206bd9f88771e285182902b11569a1d4b2f993f810f5aeeb2e"));
@@ -248,6 +247,11 @@ public:
 
         nBudget_Fee_Confirmations = 6; // Number of confirmations for the finalization fee
         nProposalEstablishmentTime = 60 * 60 * 24; // Proposals must be at least a day old to make it into a budget
+        blacklistedAddresses = std::set<std::string>{
+            "WXz7wN988DDYAYL79oSg4cRtp7Fmrz1ZFA",
+            "WkZMziCytN8cLFEN81EFnr8FRxw1eAmuDu",
+            "WmokqTYtbNRLtyT8pRvjehggsSo7C2Dq8y",
+        };
     }
 
     const Checkpoints::CCheckpointData& Checkpoints() const
