@@ -45,6 +45,36 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
     }
 }
 
+void MineGenesis(CBlock genesis)
+{
+    printf("Searching for genesis block...\n");
+    // This will figure out a valid hash and Nonce if you're
+    // creating a different genesis block:
+    uint256 hashTarget = ~uint256(0) >> 20;
+    uint256 thash;
+    while(true)
+    {
+        thash = genesis.GetHash();
+        if (thash <= hashTarget)
+            break;
+        if ((genesis.nNonce & 0xFFF) == 0)
+        {
+            printf("nonce %08X: hash = %s (target = %s)\n", genesis.nNonce, thash.ToString().c_str(), hashTarget.ToString().c_str());
+        }
+        ++genesis.nNonce;
+        if (genesis.nNonce == 0)
+        {
+            printf("NONCE WRAPPED, incrementing time\n");
+            ++genesis.nTime;
+        }
+    }
+    printf("block.nTime = %u \n", genesis.nTime);
+    printf("block.nNonce = %u \n", genesis.nNonce);
+    printf("block.GetHash = %s\n", genesis.GetHash().ToString().c_str());
+    printf("block.merkle = %s\n", genesis.hashMerkleRoot.ToString().c_str());
+    std::fflush(stdout);
+}
+
 //   What makes a good checkpoint block?
 // + Is surrounded by blocks with reasonable timestamps
 //   (no blocks before with a timestamp after, none after with
@@ -52,15 +82,13 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 // + Contains no strange transactions
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
-    (0, uint256("0x00000e0034a927349bf42ff24c57e5256cc567b591ba59bd87ddb0a9708f04f2"))
-    (697, uint256("0x9ea5c9ad8caee805d97dcfcda3256bbdff72faaa9b3b247b81c12f58da55fd14"))
-    (20932, uint256("0x4d08bd9b812eca86993588b0a30ce85ec8291593fa888d0d73c310ad91f6ab94"));
+    (0, uint256("0x"));
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
-    1583257939, // * UNIX timestamp of last checkpoint block
-    266907,    // * total number of transactions between genesis and last checkpoint
+    1568159536, // * UNIX timestamp of last checkpoint block
+    4700,    // * total number of transactions between genesis and last checkpoint
                 //   (the tx=... number in the SetBestChain debug.log lines)
-    200        // * estimated number of transactions per day after checkpoint
+    150        // * estimated number of transactions per day after checkpoint
 };
 
 static Checkpoints::MapCheckpoints mapCheckpointsTestnet =
@@ -125,8 +153,8 @@ public:
         pchMessageStart[1] = 0xb4;
         pchMessageStart[2] = 0xf6;
         pchMessageStart[3] = 0x19;
-        vAlertPubKey = ParseHex("046fa499dc9063fb95d34b3fbd97c8689b660becaf43f8d11575b6c2929a371a0c86cf22bbefed77db2ccdd3e292a27ed523911f1f3c4a6adc0f99a87f776d7769");
-        nDefaultPort = 29908;
+        vAlertPubKey = ParseHex("0400d381a3b7a01a7d31f1389f01887b99fb6e00c3d40b771ba18984b8306ace0f4ea310bf6953c9527fac1913e330d06985e5f7f1c3179bf7cb06f9bcf2a08942");
+        nDefaultPort = 39908;
         bnProofOfWorkLimit = ~uint256(0) >> 20; // PIVX starting difficulty is 1 / 2^12
         nSubsidyHalvingInterval = 210000;
         nMaxReorganizationDepth = 100;
@@ -140,10 +168,10 @@ public:
         nFutureTimeDriftPoW = 7200;
         nFutureTimeDriftPoS = 180;
         nMasternodeCountDrift = 20;
-        nMaxMoneyOut = 20000000 * COIN;
+        nMaxMoneyOut = 5000000 * COIN;
 
         /** Height or Time Based Activations **/
-        nLastPOWBlock = 200;
+        nLastPOWBlock = 250;
         nWincashCoinBadBlockTime = 1471401614; // Skip nBit validation of Block 259201 per PR #915
         nWincashCoinBadBlocknBits = 0x1c056dac; // Skip nBit validation of Block 259201 per PR #915
         nModifierUpdateBlock = 0;
@@ -159,7 +187,7 @@ public:
         nBlockDoubleAccumulated = 1050010;
         nEnforceNewSporkKey = 1567100366; //!> Sporks signed after (GMT): Thursday, Aug 29, 2019 must use the new spork key
         nRejectOldSporkKey = 1569778766; //!> Fully reject old spork key after (GMT): Sunday, September 29, 2019
-        nBlockStakeModifierlV2 = 250;
+        nBlockStakeModifierlV2 = 300;
         // Public coin spend enforcement
         nPublicZCSpends = 1880000;
 
@@ -177,26 +205,27 @@ public:
          *     CTxOut(nValue=250.00000000, scriptPubKey=0xA9037BAC7050C479B121CF)
          *   vMerkleTree: e0028e
          */
-        const char* pszTimestamp = "02/Sep/2019 The WincashCoin Launched, It will be great coin in the world!";
+        const char* pszTimestamp = "27/May/2020 The WincashCoin new version Launched!";
         CMutableTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 486604799 << CScriptNum(4) << std::vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
         txNew.vout[0].nValue = 50 * COIN;
-        txNew.vout[0].scriptPubKey = CScript() << ParseHex("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f") << OP_CHECKSIG;
+        txNew.vout[0].scriptPubKey = CScript() << ParseHex("046041f18db296abb5977e0496ac0831324ba507032f42e60ecd96470e6c5736293b89aec0a6327e6b2f70ce40aed643368897158b2b5c51539590ab4b86abf82e") << OP_CHECKSIG;
         genesis.vtx.push_back(txNew);
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime = 1567395306;
+        genesis.nTime = 1590537600;
         genesis.nBits = 0x1e0fffff;
-        genesis.nNonce = 6164107;
+        genesis.nNonce = 9814044;
 
         hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x00000e0034a927349bf42ff24c57e5256cc567b591ba59bd87ddb0a9708f04f2"));
-        assert(genesis.hashMerkleRoot == uint256("0xb768630a8f0a74206bd9f88771e285182902b11569a1d4b2f993f810f5aeeb2e"));
 
-        vSeeds.push_back(CDNSSeedData("explorer.wincashcoin.io", "explorer.wincashcoin.io"));
+        assert(hashGenesisBlock == uint256("0x00000ebb0f5a586830501f6b8e1e3cfc71e4539dac857f1cb5b8f63ebec09b55"));
+        assert(genesis.hashMerkleRoot == uint256("0x32ec85880a99c4c368d7a085b101e8b7fe0625428eb825d86449af57d6ce8540"));
+
+        vSeeds.push_back(CDNSSeedData("winexplorer.info", "winexplorer.info"));
         vSeeds.push_back(CDNSSeedData("node01.wincashcoin.io", "node01.wincashcoin.io"));
         vSeeds.push_back(CDNSSeedData("node02.wincashcoin.io", "node02.wincashcoin.io"));
         vSeeds.push_back(CDNSSeedData("node03.wincashcoin.io", "node03.wincashcoin.io"));
@@ -225,10 +254,10 @@ public:
 
         nPoolMaxTransactions = 3;
         nBudgetCycleBlocks = 432; //!< Amount of blocks in a months period of time (using 10 minutes per) = (6*24*30)
-        strSporkKey = "0482A3FC7741BF4284262C73934A6C0F2C75F764F76CC7F32017FAE2A4A0348CA6A1CA2EB738E608460B88CD876B4569B75B9191605411F70EAE74B570B0D40C8B";
-        strSporkKeyOld = "04499BEA7C201D442EA7141C76527A7F566EBD6264C9B01746BD6A1E873E8C56E66F207A4EAE0090076FAF8B5644A37701A52A2C8A2FDCB3A09003ACFBA877982E";
+        strSporkKey = "04373e28ccd1de12a262fed51e1cb0f4ecad2077415ce34c3ff5d1506648b36f650c37ec6a9788819636f02fbcf5fe837f7a23b0fe06c9632487895580066ff532";
+        strSporkKeyOld = "047b93bf2e9cdc82179b3a25a6a06e5fc1e954e37682b56a348a149313ac13c65f3bde1fd3be75bdc99d7c03b458577a8f609cb9dbcdbda76095b8f02665a8254f";
         strObfuscationPoolDummyAddress = "Wacm6T7Bn8v9xorcz72odSn4CBRdCXn2LN";
-        nStartMasternodePayments = 1567157069; //Sat, 30 Aug 2019
+        nStartMasternodePayments = 4070908800; //01 Jan 2099
         /** Zerocoin */
         zerocoinModulus = "25195908475657893494027183240048398571429282126204032027777137836043662020707595556264018525880784"
             "4069182906412495150821892985591491761845028084891200728449926873928072877767359714183472702618963750149718246911"
@@ -247,11 +276,6 @@ public:
 
         nBudget_Fee_Confirmations = 6; // Number of confirmations for the finalization fee
         nProposalEstablishmentTime = 60 * 60 * 24; // Proposals must be at least a day old to make it into a budget
-        blacklistedAddresses = std::set<std::string>{
-            "WXz7wN988DDYAYL79oSg4cRtp7Fmrz1ZFA",
-            "WkZMziCytN8cLFEN81EFnr8FRxw1eAmuDu",
-            "WmokqTYtbNRLtyT8pRvjehggsSo7C2Dq8y",
-        };
     }
 
     const Checkpoints::CCheckpointData& Checkpoints() const
@@ -277,7 +301,7 @@ public:
         pchMessageStart[2] = 0x65;
         pchMessageStart[3] = 0xba;
         vAlertPubKey = ParseHex("046fa499dc9063fb95d34b3fbd97c8689b660becaf43f8d11575b6c2929a371a0c86cf22bbefed77db2ccdd3e292a27ed523911f1f3c4a6adc0f99a87f776d7769");
-        nDefaultPort = 29909;
+        nDefaultPort = 39909;
         nEnforceBlockUpgradeMajority = 4320; // 75%
         nRejectBlockOutdatedMajority = 5472; // 95%
         nToCheckBlockUpgradeMajority = 5760; // 4 days
@@ -311,11 +335,11 @@ public:
         nSupplyBeforeFakeSerial = 0;
 
         //! Modify the testnet genesis block so the timestamp is valid for a later start.
-        genesis.nTime = 1454124731;
-        genesis.nNonce = 2402015;
+        genesis.nTime = 1590537600;
+        genesis.nNonce = 4343998;
 
         hashGenesisBlock = genesis.GetHash();
-//        assert(hashGenesisBlock == uint256("0x0000041e482b9b9691d98eefb48473405c0b8ec31b76df3797c74a78680ef818"));
+        assert(hashGenesisBlock == uint256("0x000007ff13691a6a6dc17a3dd19c331d51f666453adf4edbd3f1d0414a85e8c9"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
@@ -372,7 +396,7 @@ public:
         pchMessageStart[1] = 0xcf;
         pchMessageStart[2] = 0x7e;
         pchMessageStart[3] = 0xac;
-        nDefaultPort = 29910;
+        nDefaultPort = 39910;
         nSubsidyHalvingInterval = 150;
         nEnforceBlockUpgradeMajority = 750;
         nRejectBlockOutdatedMajority = 950;
@@ -401,12 +425,11 @@ public:
         nFakeSerialBlockheightEnd = -1;
 
         //! Modify the regtest genesis block so the timestamp is valid for a later start.
-        genesis.nTime = 1454124731;
-        genesis.nNonce = 2402015;
+        genesis.nTime = 1590537600;
+        genesis.nNonce = 4343998;
 
         hashGenesisBlock = genesis.GetHash();
-        //assert(hashGenesisBlock == uint256("0x0000041e482b9b9691d98eefb48473405c0b8ec31b76df3797c74a78680ef818"));
-        //assert(hashGenesisBlock == uint256("0x4f023a2120d9127b21bbad01724fdb79b519f593f2a85b60d3d79160ec5f29df"));
+        assert(hashGenesisBlock == uint256("0x000007ff13691a6a6dc17a3dd19c331d51f666453adf4edbd3f1d0414a85e8c9"));
 
         vFixedSeeds.clear(); //! Testnet mode doesn't have any fixed seeds.
         vSeeds.clear();      //! Testnet mode doesn't have any DNS seeds.
@@ -443,7 +466,7 @@ public:
     {
         networkID = CBaseChainParams::UNITTEST;
         strNetworkID = "unittest";
-        nDefaultPort = 29911;
+        nDefaultPort = 39911;
         vFixedSeeds.clear(); //! Unit test mode doesn't have any fixed seeds.
         vSeeds.clear();      //! Unit test mode doesn't have any DNS seeds.
 

@@ -4896,8 +4896,8 @@ Please be patient...</source>
         <translation>환경설정에서 masternodeprivkey를 지정해야 합니다. 도움말을 참조하십시오.</translation>
     </message>
     <message>
-        <source>(29908 could be used only on mainnet)</source>
-        <translation>(29908 은 메인넷에서만 사용될 수 있습니다)</translation>
+        <source>(39908 could be used only on mainnet)</source>
+        <translation>(39908 은 메인넷에서만 사용될 수 있습니다)</translation>
     </message>
     <message>
         <source>(default: %s)</source>
@@ -4908,8 +4908,8 @@ Please be patient...</source>
         <translation>(기본값: 1)</translation>
     </message>
     <message>
-        <source>(must be 29908 for mainnet)</source>
-        <translation>(메인넷 일경우 29908)</translation>
+        <source>(must be 39908 for mainnet)</source>
+        <translation>(메인넷 일경우 39908)</translation>
     </message>
     <message>
         <source>Accept command line and JSON-RPC commands</source>

@@ -250,10 +250,10 @@ QT_TRANSLATE_NOOP("wincashcoin-core", ""
 QT_TRANSLATE_NOOP("wincashcoin-core", ""
 "You must specify a masternodeprivkey in the configuration. Please see "
 "documentation for help."),
-QT_TRANSLATE_NOOP("wincashcoin-core", "(29908 could be used only on mainnet)"),
+QT_TRANSLATE_NOOP("wincashcoin-core", "(39908 could be used only on mainnet)"),
 QT_TRANSLATE_NOOP("wincashcoin-core", "(default: %s)"),
 QT_TRANSLATE_NOOP("wincashcoin-core", "(default: 1)"),
-QT_TRANSLATE_NOOP("wincashcoin-core", "(must be 29908 for mainnet)"),
+QT_TRANSLATE_NOOP("wincashcoin-core", "(must be 39908 for mainnet)"),
 QT_TRANSLATE_NOOP("wincashcoin-core", "<category> can be:"),
 QT_TRANSLATE_NOOP("wincashcoin-core", "Accept command line and JSON-RPC commands"),
 QT_TRANSLATE_NOOP("wincashcoin-core", "Accept connections from outside (default: 1 if no -proxy or -connect)"),

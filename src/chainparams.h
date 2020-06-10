@@ -104,7 +104,6 @@ public:
     /** Return the number of blocks in a budget cycle */
     int GetBudgetCycleBlocks() const { return nBudgetCycleBlocks; }
     int64_t GetProposalEstablishmentTime() const { return nProposalEstablishmentTime; }
-    std::set<std::string> BlacklistedAddresses() const { return blacklistedAddresses; }
 
     /** Spork key and Masternode Handling **/
     std::string SporkKey() const { return strSporkKey; }
@@ -183,7 +182,6 @@ protected:
     int nMinerThreads;
     std::vector<CDNSSeedData> vSeeds;
     std::vector<unsigned char> base58Prefixes[MAX_BASE58_TYPES];
-    std::set<std::string> blacklistedAddresses;
     CBaseChainParams::Network networkID;
     std::string strNetworkID;
     CBlock genesis;

@@ -5201,8 +5201,8 @@ Var tålmodig...</translation>
         <translation>Du måste specifiera en masternodeprivkey i konfigurationen. Var vänlig se dokumentationen för hjälp.</translation>
     </message>
     <message>
-        <source>(29908 could be used only on mainnet)</source>
-        <translation>(29908 kunde endast användas på mainnet)</translation>
+        <source>(39908 could be used only on mainnet)</source>
+        <translation>(39908 kunde endast användas på mainnet)</translation>
     </message>
     <message>
         <source>(default: %s)</source>
@@ -5213,8 +5213,8 @@ Var tålmodig...</translation>
         <translation>(standard: 1)</translation>
     </message>
     <message>
-        <source>(must be 29908 for mainnet)</source>
-        <translation>(måste vara 29908 för mainnet)</translation>
+        <source>(must be 39908 for mainnet)</source>
+        <translation>(måste vara 39908 för mainnet)</translation>
     </message>
     <message>
         <source>Accept command line and JSON-RPC commands</source>

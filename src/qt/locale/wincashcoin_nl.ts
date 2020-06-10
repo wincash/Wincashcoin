@@ -5092,8 +5092,8 @@ Wees alsjeblieft geduldig...</translation>
         <translation>Je moet een masternodeprivkey opgeven in de configuratie. Raadpleeg de documentatie voor hulp.</translation>
     </message>
     <message>
-        <source>(29908 could be used only on mainnet)</source>
-        <translation>(29908 kan alleen op mainnet worden gebruikt)</translation>
+        <source>(39908 could be used only on mainnet)</source>
+        <translation>(39908 kan alleen op mainnet worden gebruikt)</translation>
     </message>
     <message>
         <source>(default: %s)</source>
@@ -5104,8 +5104,8 @@ Wees alsjeblieft geduldig...</translation>
         <translation>(standaard: 1)</translation>
     </message>
     <message>
-        <source>(must be 29908 for mainnet)</source>
-        <translation>(moet 29908 voor mainnet zijn)</translation>
+        <source>(must be 39908 for mainnet)</source>
+        <translation>(moet 39908 voor mainnet zijn)</translation>
     </message>
     <message>
         <source>Accept command line and JSON-RPC commands</source>
