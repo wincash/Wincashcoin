@@ -226,11 +226,11 @@ public:
         assert(genesis.hashMerkleRoot == uint256("0x32ec85880a99c4c368d7a085b101e8b7fe0625428eb825d86449af57d6ce8540"));
 
         vSeeds.push_back(CDNSSeedData("winexplorer.info", "winexplorer.info"));
-        vSeeds.push_back(CDNSSeedData("node01.wincashcoin.io", "node01.wincashcoin.io"));
-        vSeeds.push_back(CDNSSeedData("node02.wincashcoin.io", "node02.wincashcoin.io"));
-        vSeeds.push_back(CDNSSeedData("node03.wincashcoin.io", "node03.wincashcoin.io"));
-        vSeeds.push_back(CDNSSeedData("node04.wincashcoin.io", "node04.wincashcoin.io"));
-        vSeeds.push_back(CDNSSeedData("node05.wincashcoin.io", "node05.wincashcoin.io"));
+        vSeeds.push_back(CDNSSeedData("62.171.158.112", "62.171.158.112"));
+        vSeeds.push_back(CDNSSeedData("62.171.158.115", "62.171.158.115"));
+        vSeeds.push_back(CDNSSeedData("62.171.158.116", "62.171.158.116"));
+        vSeeds.push_back(CDNSSeedData("62.171.158.117", "62.171.158.117"));
+        vSeeds.push_back(CDNSSeedData("62.171.158.119", "62.171.158.119"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 73);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 13);
